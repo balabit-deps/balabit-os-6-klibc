@@ -1,3 +1,19 @@
+klibc (2.0.4-8ubuntu1.16.04.4) xenial; urgency=medium
+
+  * Write DNS domain in place of DOMAINSEARCH if that wasn't provided by the
+    DHCP server. (LP: #1713747)
+    - 0001-Write-DNS-domain-from-DHCP-if-we-have-no-DOMAINSEARC.patch
+
+ -- Mathieu Trudel-Lapierre <cyphermox@ubuntu.com>  Fri, 10 Nov 2017 16:31:40 -0500
+
+klibc (2.0.4-8ubuntu1.16.04.3) xenial; urgency=medium
+
+  * debian/patches/dhcp-one-socket-per-interface.patch: Use separate
+    sockets for DHCP from multiple interfaces.  Thanks to Jay Vosburgh
+    <jay.vosburgh@canonical.com>.  Closes LP: #1652348.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Tue, 24 Jan 2017 11:40:58 -0800
+
 klibc (2.0.4-8ubuntu1.16.04.2) xenial; urgency=medium
 
   * debian/patches/fix_broadcast_flag-bit.patch: the previous patch set the

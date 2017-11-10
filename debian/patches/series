@@ -19,3 +19,5 @@ syscalls-override-detection-of-direct-socket-syscalls-on-i386-m68k-s390.patch
 run-init-add-dry-run-mode.patch
 broadcast_dhcp_send.patch
 fix_broadcast_flag_bit.patch
+dhcp-one-socket-per-interface.patch
+0001-Write-DNS-domain-from-DHCP-if-we-have-no-DOMAINSEARC.patch

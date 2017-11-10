@@ -1,0 +1,32 @@
+From be32008bd5f308a2f1e9d8eaf51b054da42595d3 Mon Sep 17 00:00:00 2001
+From: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
+Date: Thu, 9 Nov 2017 16:03:44 -0500
+Subject: [PATCH] Write DNS domain from DHCP if we have no DOMAINSEARCH
+ provided
+
+If no DOMAINSEARCH was provided via DHCP, try to mimic what ISC DHCP does and
+set DOMAINSEARCH to the current DNS domain name. Some people may want to rely
+on short names in early boot to reach iSCSI, for instance.
+
+Signed-off-by: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
+
+diff --git a/usr/kinit/ipconfig/main.c b/usr/kinit/ipconfig/main.c
+index 7be2a1fc..e6caf0eb 100644
+--- a/usr/kinit/ipconfig/main.c
++++ b/usr/kinit/ipconfig/main.c
+@@ -177,8 +177,10 @@ static void dump_device_config(struct netdev *dev)
+ 		write_option(f, "UPTIME", buf21);
+ 		sprintf(buf21, "%u", (unsigned int)dev->dhcpleasetime);
+ 		write_option(f, "DHCPLEASETIME", buf21);
+-		write_option(f, "DOMAINSEARCH", dev->domainsearch == NULL ?
+-			     "" : dev->domainsearch);
++		if (dev->domainsearch != NULL)
++			write_option(f, "DOMAINSEARCH", dev->domainsearch);
++		else
++			write_option(f, "DOMAINSEARCH", dev->dnsdomainname);
+ 		fclose(f);
+ 	}
+ }
+-- 
+2.14.1
+
